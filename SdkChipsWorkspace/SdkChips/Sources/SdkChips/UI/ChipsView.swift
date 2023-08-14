@@ -20,22 +20,26 @@ internal struct ChipsView : View {
     
     /// Instance of the body {@Link View}.
     var body: some View {
-        FlexibleView(
-            data: getChips(),
-            spacing: SdkConstants.chipsPadding,
-            alignment: .leading
-        ) { item in
-            ChipView(
-                chip: item,
-                isRemovable: isRemovable,
-                tint: tint,
-                corner: corner,
-                click: click,
-                moreClick: moreClick
-            )
+        if getChips().count > 0 {
+            FlexibleView(
+                data: getChips(),
+                spacing: SdkConstants.chipsPadding,
+                alignment: .leading
+            ) { item in
+                ChipView(
+                    chip: item,
+                    isRemovable: isRemovable,
+                    tint: tint,
+                    corner: corner,
+                    click: click,
+                    moreClick: moreClick
+                )
+            }
+            .padding(SdkConstants.chipsPadding)
+            .listRowInsets(EdgeInsets())
+        } else {
+            EmptyView()
         }
-        .padding(SdkConstants.chipsPadding)
-        .listRowInsets(EdgeInsets())
     }
     
     /// Method which provide to get chips.
@@ -49,7 +53,12 @@ internal struct ChipsView : View {
             result.removeAll()
             result.append(contentsOf: it)
         }
-        if moreClick != nil { result.append(.moreChip) }
+        if moreClick != nil {
+            let it = result
+            result.removeAll()
+            result.append(.moreChip)
+            result.append(contentsOf: it)
+        }
         return result
     }
 }

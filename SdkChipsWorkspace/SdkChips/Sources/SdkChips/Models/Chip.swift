@@ -78,7 +78,14 @@ public extension Chip {
         image: Image? = nil,
         title: LocalizedStringKey,
         selected: Bool? = nil
-    ) -> Chip { .init(id: id, image: image, title: title, isSelected: selected ?? false) }
+    ) -> Chip {
+        .init(
+            id: id,
+            image: image,
+            title: title,
+            isSelected: selected ?? false
+        )
+    }
     
 }
 

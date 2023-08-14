@@ -1,50 +1,50 @@
 import Foundation
 import SwiftUI
 
-/// Chips sections view.
-public struct SectionsMultilineView : View {
+/// Header view for the chips.
+public struct ChipsHeaderView : View {
     /// Instance of the {@link ChipSection}.
     var sections: Binding<[ChipSection]>
-    /// {@link Bool} value if it is removable.
-    let isRemovable: Bool
     /// Limit value.
     let limit: Int?
     /// {@link Color} value of the tint.
     let tint: Color
     /// {@link CGFloat} of the corner radius.
     let corner: CGFloat
+    /// More click callback.
+    let moreClick: MoreClickCallback?
     
     /// Default constructor.
     /// - Parameters:
     ///   - sections: sections array.
-    ///   - isRemovable: is removable.
-    ///   - limit: limit of tags.
+    ///   - limit: limit count.
     ///   - tint: tint color.
     ///   - corner: corner radius.
+    ///   - moreClick: more click callback.
     public init(
         sections: Binding<[ChipSection]>,
-        isRemovable: Bool,
         limit: Int?,
         tint: Color,
-        corner: CGFloat
+        corner: CGFloat,
+        moreClick: MoreClickCallback?
     ) {
         self.sections = sections
-        self.isRemovable = isRemovable
         self.limit = limit
         self.tint = tint
         self.corner = corner
+        self.moreClick = moreClick
     }
     
     /// Instance of the {@link View}.
     public var body: some View {
         ChipsView(
             chips: getChips(),
-            isRemovable: isRemovable,
+            isRemovable: true,
             limit: limit,
             tint: tint,
             corner: corner,
             click: { chip in onClicked(chip) },
-            moreClick: { }
+            moreClick: moreClick
         )
     }
     
@@ -65,5 +65,4 @@ public struct SectionsMultilineView : View {
             }
         }
     }
-    
 }

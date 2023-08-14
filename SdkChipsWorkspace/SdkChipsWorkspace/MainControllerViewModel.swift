@@ -5,7 +5,6 @@ import SdkChips
 /// View model for the {@link MainController}.
 class MainControllerViewModel : ObservableObject {
     @Published var chips: [ChipSection] = Constants.chips
-    @Published var isGrouped: Bool = false
-    @Published var isClosable: Bool = false
-    @Published var limit: Int? = nil
+    @Published var chipSearch: String = ""
+    @Published var isShownSelection: Bool = false
 }

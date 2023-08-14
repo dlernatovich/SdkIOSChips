@@ -16,26 +16,25 @@ struct MainControllerView : View {
     
     /// Instance of the {@link View}.
     var body: some View {
-        List {
-            if vm.isGrouped == true {
-                ForEach($vm.chips, id: \.id) { $section in
-                    SectionView(
-                        section: $section,
-                        isRemovable: vm.isClosable,
-                        limit: vm.limit,
-                        tint: .green,
-                        corner: 8.0
-                    )
-                }
-            } else {
-                SectionsMultilineView(
+        ZStack {
+            List {
+                ChipsHeaderView(
                     sections: $vm.chips,
-                    isRemovable: vm.isClosable,
-                    limit: vm.limit,
-                    tint: .green,
-                    corner: 8.0
+                    limit: nil,
+                    tint: .orange,
+                    corner: 8.0,
+                    moreClick: { vm.isShownSelection.toggle() }
                 )
             }
+            ChipsSelectionView(
+                isPresented: $vm.isShownSelection,
+                chipSearch: $vm.chipSearch,
+                title: LocalizedStringKey("Tags"),
+                sections: $vm.chips,
+                limit: nil,
+                tint: .orange,
+                corner: 8.0
+            )
         }
         .navigationTitle(LocalizedStringKey("Main Screen"))
     }

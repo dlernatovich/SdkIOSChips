@@ -25,7 +25,7 @@ internal struct ChipView : View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: SdkConstants.chipIconSize, height: SdkConstants.chipIconSize)
-                    .foregroundColor(tint)
+                    .foregroundColor(.gray)
             } else {
                 chip.image?
                     .resizable()
@@ -52,7 +52,9 @@ internal struct ChipView : View {
         .overlay(
             RoundedRectangle(
                 cornerRadius: corner
-            ).stroke(tint, lineWidth: SdkConstants.chipLineWidth)
+            ).stroke(
+                getStrokeColor(chip), lineWidth: SdkConstants.chipLineWidth
+            )
         )
         .onTapGesture {
             if chip.isMoreChip() == true {
@@ -82,12 +84,26 @@ internal struct ChipView : View {
     /// - Returns: color value.
     private func getBackgroundColor(_ chip: Chip) -> Color {
         if chip.isMoreChip() == true {
-            return tint.opacity(SdkConstants.chipBackgroundOpacity)
+            return .gray.opacity(SdkConstants.chipBackgroundOpacity)
+            //return tint.opacity(SdkConstants.chipBackgroundOpacity)
         } else {
-            if chip.isSelected == true {
+            if isRemovable {
+                return .clear
+            } else if chip.isSelected == true {
                 return tint.opacity(SdkConstants.chipBackgroundOpacity)
             }
             return .clear
+        }
+    }
+    
+    /// Method which provide to get stroke color.
+    /// - Parameter chip: instance.
+    /// - Returns: color value.
+    private func getStrokeColor(_ chip: Chip) -> Color {
+        if chip.isMoreChip() == true {
+            return .gray
+        } else {
+            return tint
         }
     }
 }

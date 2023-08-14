@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 /// Chips section view.
-public struct SectionView : View {
+internal struct SectionView : View {
     /// Instance of the {@link ChipSection}.
     var section: Binding<ChipSection>
     /// {@link Bool} value if it is removable.
@@ -13,30 +13,36 @@ public struct SectionView : View {
     let tint: Color
     /// {@link CGFloat} of the corner radius.
     let corner: CGFloat
+    /// More click callback.
+    let moreClick: MoreClickCallback?
     
     /// Default constructor.
     /// - Parameters:
-    ///   - section: value.
+    ///   - section: instance.
+    ///   - filter: filter value.
     ///   - isRemovable: is removable.
-    ///   - limit: limit tags value.
-    ///   - tint: tint color.
+    ///   - limit: limit value.
+    ///   - tint: tint color value.
     ///   - corner: corner radius.
-    public init(
+    ///   - moreClick: more click callback.
+    internal init(
         section: Binding<ChipSection>,
         isRemovable: Bool,
         limit: Int?,
         tint: Color,
-        corner: CGFloat
+        corner: CGFloat,
+        moreClick: MoreClickCallback?
     ) {
         self.section = section
         self.isRemovable = isRemovable
         self.limit = limit
         self.tint = tint
         self.corner = corner
+        self.moreClick = moreClick
     }
     
     /// Instance of the {@link View}.
-    public var body: some View {
+    internal var body: some View {
         Section(header: Text(section.wrappedValue.title)) {
             ChipsView(
                 chips: section.chips.wrappedValue,
@@ -45,7 +51,7 @@ public struct SectionView : View {
                 tint: tint,
                 corner: corner,
                 click: { chip in onClicked(chip) },
-                moreClick: { }
+                moreClick: moreClick
             )
             .listRowInsets(EdgeInsets())
         }

@@ -20,9 +20,6 @@ struct MainControllerView : View {
             List {
                 ChipsHeaderView(
                     sections: $vm.chips,
-                    limit: nil,
-                    tint: .orange,
-                    corner: 8.0,
                     moreClick: { vm.isShownSelection.toggle() }
                 )
             }
@@ -30,10 +27,7 @@ struct MainControllerView : View {
                 isPresented: $vm.isShownSelection,
                 chipSearch: $vm.chipSearch,
                 title: LocalizedStringKey("Tags"),
-                sections: $vm.chips,
-                limit: nil,
-                tint: .orange,
-                corner: 8.0
+                sections: $vm.chips
             )
         }
         .navigationTitle(LocalizedStringKey("Main Screen"))

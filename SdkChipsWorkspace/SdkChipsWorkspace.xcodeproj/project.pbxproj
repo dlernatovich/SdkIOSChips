@@ -35,6 +35,9 @@
 		018EC1A32A866A960007EFC4 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 018EC1A22A866A960007EFC4 /* SdkChips */; };
 		018EC1A62A86743B0007EFC4 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 018EC1A52A86743B0007EFC4 /* SdkChips */; };
 		018EC1A92A86773E0007EFC4 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 018EC1A82A86773E0007EFC4 /* SdkChips */; };
+		019156132A8BC3A1000FE278 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 019156122A8BC3A1000FE278 /* SdkChips */; };
+		019156162A8BC47C000FE278 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 019156152A8BC47C000FE278 /* SdkChips */; };
+		019156192A8BCD76000FE278 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 019156182A8BCD76000FE278 /* SdkChips */; };
 		01F99A022A8A41B400C36AC9 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 01F99A012A8A41B400C36AC9 /* SdkChips */; };
 		01F99A052A8A43AA00C36AC9 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 01F99A042A8A43AA00C36AC9 /* SdkChips */; };
 		01F99A082A8A44A200C36AC9 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 01F99A072A8A44A200C36AC9 /* SdkChips */; };
@@ -76,6 +79,7 @@
 				01F99A082A8A44A200C36AC9 /* SdkChips in Frameworks */,
 				018EC1A02A86688D0007EFC4 /* SdkChips in Frameworks */,
 				016106ED2A851B260017C627 /* SdkChips in Frameworks */,
+				019156162A8BC47C000FE278 /* SdkChips in Frameworks */,
 				016106EA2A85066D0017C627 /* SdkChips in Frameworks */,
 				016106E72A84FF930017C627 /* SdkChips in Frameworks */,
 				016106F02A8521F30017C627 /* SdkChips in Frameworks */,
@@ -83,6 +87,8 @@
 				018EC1942A865FEF0007EFC4 /* SdkChips in Frameworks */,
 				01F99A0E2A8A506200C36AC9 /* SdkChips in Frameworks */,
 				018EC1972A86617A0007EFC4 /* SdkChips in Frameworks */,
+				019156132A8BC3A1000FE278 /* SdkChips in Frameworks */,
+				019156192A8BCD76000FE278 /* SdkChips in Frameworks */,
 				016106F62A852E8A0017C627 /* SdkChips in Frameworks */,
 				016106E12A84F6B00017C627 /* SdkChips in Frameworks */,
 			);
@@ -165,6 +171,9 @@
 				01F99A072A8A44A200C36AC9 /* SdkChips */,
 				01F99A0A2A8A468000C36AC9 /* SdkChips */,
 				01F99A0D2A8A506200C36AC9 /* SdkChips */,
+				019156122A8BC3A1000FE278 /* SdkChips */,
+				019156152A8BC47C000FE278 /* SdkChips */,
+				019156182A8BCD76000FE278 /* SdkChips */,
 			);
 			productName = SdkChipsWorkspace;
 			productReference = 016106C12A84F1920017C627 /* SdkChipsWorkspace.app */;
@@ -195,7 +204,7 @@
 			);
 			mainGroup = 016106B82A84F1910017C627;
 			packageReferences = (
-				01F99A0C2A8A506200C36AC9 /* XCLocalSwiftPackageReference "SdkChips" */,
+				019156172A8BCD76000FE278 /* XCLocalSwiftPackageReference "SdkChips" */,
 			);
 			productRefGroup = 016106C22A84F1920017C627 /* Products */;
 			projectDirPath = "";
@@ -453,7 +462,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		01F99A0C2A8A506200C36AC9 /* XCLocalSwiftPackageReference "SdkChips" */ = {
+		019156172A8BCD76000FE278 /* XCLocalSwiftPackageReference "SdkChips" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = SdkChips;
 		};
@@ -537,6 +546,18 @@
 			productName = SdkChips;
 		};
 		018EC1A82A86773E0007EFC4 /* SdkChips */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SdkChips;
+		};
+		019156122A8BC3A1000FE278 /* SdkChips */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SdkChips;
+		};
+		019156152A8BC47C000FE278 /* SdkChips */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SdkChips;
+		};
+		019156182A8BCD76000FE278 /* SdkChips */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SdkChips;
 		};

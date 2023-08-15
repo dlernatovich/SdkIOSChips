@@ -9,9 +9,13 @@ internal struct ChipView : View {
     /// {@link Bool} value if it is removable.
     let isRemovable: Bool
     /// {@link Color} value of the tint.
-    let tint: Color
+    private var tint: Color { ChipsConfiguration.tint }
+    /// {@link Color} value of the more button tint.
+    private var moreButtonTint: Color { ChipsConfiguration.moreButtonTint }
     /// {@link CGFloat} of the corner radius.
-    let corner: CGFloat
+    private var corner: CGFloat { ChipsConfiguration.corner }
+    /// {@link Int} value of the more count.
+    private var moreCount: Int { ChipsConfiguration.moreCount }
     /// Click callback.
     let click: ChipClickCallback
     /// More click callback.
@@ -25,7 +29,18 @@ internal struct ChipView : View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: SdkConstants.chipIconSize, height: SdkConstants.chipIconSize)
-                    .foregroundColor(.gray)
+                    .foregroundColor(ChipsConfiguration.moreButtonTint)
+                if moreCount > 0 {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: ChipsConfiguration.corner)
+                            .fill(ChipsConfiguration.tint)
+                        Text(verbatim: "+\(moreCount)")
+                            .font(.system(.caption2))
+                            .fontWeight(.bold)
+                            .foregroundColor(ChipsConfiguration.moreButtonBadgeTextTint)
+                            .padding(.all, 3)
+                    }
+                }
             } else {
                 chip.image?
                     .resizable()
@@ -84,8 +99,7 @@ internal struct ChipView : View {
     /// - Returns: color value.
     private func getBackgroundColor(_ chip: Chip) -> Color {
         if chip.isMoreChip() == true {
-            return .gray.opacity(SdkConstants.chipBackgroundOpacity)
-            //return tint.opacity(SdkConstants.chipBackgroundOpacity)
+            return moreButtonTint.opacity(SdkConstants.chipBackgroundOpacity)
         } else {
             if isRemovable {
                 return .clear
@@ -101,7 +115,7 @@ internal struct ChipView : View {
     /// - Returns: color value.
     private func getStrokeColor(_ chip: Chip) -> Color {
         if chip.isMoreChip() == true {
-            return .gray
+            return moreButtonTint
         } else {
             return tint
         }

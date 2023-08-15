@@ -5,33 +5,15 @@ import SwiftUI
 public struct ChipsHeaderView : View {
     /// Instance of the {@link ChipSection}.
     var sections: Binding<[ChipSection]>
-    /// Limit value.
-    let limit: Int?
-    /// {@link Color} value of the tint.
-    let tint: Color
-    /// {@link CGFloat} of the corner radius.
-    let corner: CGFloat
     /// More click callback.
     let moreClick: MoreClickCallback?
     
     /// Default constructor.
     /// - Parameters:
     ///   - sections: sections array.
-    ///   - limit: limit count.
-    ///   - tint: tint color.
-    ///   - corner: corner radius.
     ///   - moreClick: more click callback.
-    public init(
-        sections: Binding<[ChipSection]>,
-        limit: Int?,
-        tint: Color,
-        corner: CGFloat,
-        moreClick: MoreClickCallback?
-    ) {
+    public init(sections: Binding<[ChipSection]>, moreClick: MoreClickCallback?) {
         self.sections = sections
-        self.limit = limit
-        self.tint = tint
-        self.corner = corner
         self.moreClick = moreClick
     }
     
@@ -40,9 +22,7 @@ public struct ChipsHeaderView : View {
         ChipsView(
             chips: getChips(),
             isRemovable: true,
-            limit: limit,
-            tint: tint,
-            corner: corner,
+            isNeedLimits: true,
             click: { chip in onClicked(chip) },
             moreClick: moreClick
         )

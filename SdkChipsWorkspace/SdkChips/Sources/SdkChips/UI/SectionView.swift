@@ -7,39 +7,10 @@ internal struct SectionView : View {
     var section: Binding<ChipSection>
     /// {@link Bool} value if it is removable.
     let isRemovable: Bool
-    /// Limit value.
-    let limit: Int?
-    /// {@link Color} value of the tint.
-    let tint: Color
-    /// {@link CGFloat} of the corner radius.
-    let corner: CGFloat
+    /// {@link Bool} value if it is need limits.
+    let isNeedLimits: Bool
     /// More click callback.
     let moreClick: MoreClickCallback?
-    
-    /// Default constructor.
-    /// - Parameters:
-    ///   - section: instance.
-    ///   - filter: filter value.
-    ///   - isRemovable: is removable.
-    ///   - limit: limit value.
-    ///   - tint: tint color value.
-    ///   - corner: corner radius.
-    ///   - moreClick: more click callback.
-    internal init(
-        section: Binding<ChipSection>,
-        isRemovable: Bool,
-        limit: Int?,
-        tint: Color,
-        corner: CGFloat,
-        moreClick: MoreClickCallback?
-    ) {
-        self.section = section
-        self.isRemovable = isRemovable
-        self.limit = limit
-        self.tint = tint
-        self.corner = corner
-        self.moreClick = moreClick
-    }
     
     /// Instance of the {@link View}.
     internal var body: some View {
@@ -47,9 +18,7 @@ internal struct SectionView : View {
             ChipsView(
                 chips: section.chips.wrappedValue,
                 isRemovable: isRemovable,
-                limit: limit,
-                tint: tint,
-                corner: corner,
+                isNeedLimits: isNeedLimits,
                 click: { chip in onClicked(chip) },
                 moreClick: moreClick
             )

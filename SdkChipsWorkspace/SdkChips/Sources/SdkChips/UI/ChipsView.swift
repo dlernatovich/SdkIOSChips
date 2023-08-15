@@ -7,12 +7,16 @@ internal struct ChipsView : View {
     let chips: [Chip]
     /// {@link Bool} value if it is removable.
     let isRemovable: Bool
+    /// {@link Bool} value if is need limits.
+    let isNeedLimits: Bool
     /// Limit value.
-    let limit: Int?
+    private var limit: Int? { ChipsConfiguration.limit }
     /// {@link Color} value of the tint.
-    let tint: Color
+    private var tint: Color { ChipsConfiguration.tint }
+    /// {@link Color} value for the more color.
+    private var moreButtonTint: Color { ChipsConfiguration.moreButtonTint }
     /// {@link CGFloat} of the corner radius.
-    let corner: CGFloat
+    private var corner: CGFloat { ChipsConfiguration.corner }
     /// Click chip callback.
     let click: ChipClickCallback
     /// More click callback.
@@ -29,8 +33,6 @@ internal struct ChipsView : View {
                 ChipView(
                     chip: item,
                     isRemovable: isRemovable,
-                    tint: tint,
-                    corner: corner,
                     click: click,
                     moreClick: moreClick
                 )
@@ -48,10 +50,12 @@ internal struct ChipsView : View {
         var result: [Chip] = []
         result.append(contentsOf: chips)
         if isRemovable == true { result.removeAll(where: { $0.isSelected == false }) }
-        if let limit = limit {
+        if isNeedLimits == true, let limit = limit {
+            let previousCount = result.count
             let it = result.prefix(limit)
             result.removeAll()
             result.append(contentsOf: it)
+            ChipsConfiguration.moreCount = previousCount - result.count
         }
         if moreClick != nil {
             let it = result

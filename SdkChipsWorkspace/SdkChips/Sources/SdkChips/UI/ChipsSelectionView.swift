@@ -12,12 +12,6 @@ internal struct ChipsSelectionInternalView : View {
     let title: LocalizedStringKey
     /// Instance of the {@link ChipSection}.
     var sections: Binding<[ChipSection]>
-    /// Limit value.
-    let limit: Int?
-    /// {@link Color} value of the tint.
-    let tint: Color
-    /// {@link CGFloat} of the corner radius.
-    let corner: CGFloat
     
     /// Instance of the {@link View}.
     public var body: some View {
@@ -28,9 +22,7 @@ internal struct ChipsSelectionInternalView : View {
                         SectionView(
                             section: $0,
                             isRemovable: false,
-                            limit: limit,
-                            tint: tint,
-                            corner: corner,
+                            isNeedLimits: false,
                             moreClick: nil
                         )
                     }
@@ -38,9 +30,7 @@ internal struct ChipsSelectionInternalView : View {
                     ChipsView(
                         chips: getChips(filter: chipSearch.wrappedValue),
                         isRemovable: false,
-                        limit: limit,
-                        tint: tint,
-                        corner: corner,
+                        isNeedLimits: false,
                         click: { onClicked($0) },
                         moreClick: nil
                     )
@@ -55,7 +45,7 @@ internal struct ChipsSelectionInternalView : View {
                     }
                 }
             }
-            .accentColor(tint)
+            .accentColor(ChipsConfiguration.tint)
         }
         // Add searchable.
         if #available(iOS 15.0, *) {
@@ -98,37 +88,22 @@ public struct ChipsSelectionView : View {
     let title: LocalizedStringKey
     /// Instance of the {@link ChipSection}.
     var sections: Binding<[ChipSection]>
-    /// Limit value.
-    let limit: Int?
-    /// {@link Color} value of the tint.
-    let tint: Color
-    /// {@link CGFloat} of the corner radius.
-    let corner: CGFloat
     
     /// Default constructor.
     /// - Parameters:
     ///   - isPresented: is presented.
     ///   - title: value.
     ///   - sections: sections array.
-    ///   - limit: limit value.
-    ///   - tint: tint color.
-    ///   - corner: corner value.
     public init(
         isPresented: Binding<Bool>,
         chipSearch: Binding<String>,
         title: LocalizedStringKey,
-        sections: Binding<[ChipSection]>,
-        limit: Int?,
-        tint: Color,
-        corner: CGFloat
+        sections: Binding<[ChipSection]>
     ) {
         self.isPresented = isPresented
         self.chipSearch = chipSearch
         self.title = title
         self.sections = sections
-        self.limit = limit
-        self.tint = tint
-        self.corner = corner
     }
     
     /// Instance of the {@link View}.
@@ -137,10 +112,7 @@ public struct ChipsSelectionView : View {
             ChipsSelectionInternalView(
                 chipSearch: chipSearch,
                 title: title,
-                sections: sections,
-                limit: limit,
-                tint: tint,
-                corner: corner
+                sections: sections
             )
         }
     }

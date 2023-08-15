@@ -1,4 +1,6 @@
 import UIKit
+import SwiftUI
+import SdkChips
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -6,6 +8,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        SdkChipsConfigurator.configure(
+            limit: 4,
+            tint: Color("ColorPurple", bundle: .main),
+            moreButtonTint: Color(UIColor.darkGray),
+            corner: 8.0
+        )
         // Override point for customization after application launch.
         return true
     }

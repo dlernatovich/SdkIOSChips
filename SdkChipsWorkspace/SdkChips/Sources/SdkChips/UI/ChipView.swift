@@ -38,8 +38,9 @@ internal struct ChipView : View {
                             .font(.system(.caption2))
                             .fontWeight(.bold)
                             .foregroundColor(ChipsConfiguration.moreButtonBadgeTextTint)
-                            .padding(.all, 3)
-                    }
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                    }.fixedSize()
                 }
             } else {
                 chip.image?

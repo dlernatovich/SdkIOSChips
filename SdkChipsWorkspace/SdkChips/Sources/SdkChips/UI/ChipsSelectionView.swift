@@ -36,6 +36,7 @@ internal struct ChipsSelectionInternalView : View {
                     )
                 }
             }
+            .animation(nil)
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -49,7 +50,8 @@ internal struct ChipsSelectionInternalView : View {
         }
         // Add searchable.
         if #available(iOS 15.0, *) {
-            view.searchable(text: chipSearch)
+            view
+//                .searchable(text: chipSearch)
         } else {
             view
         }

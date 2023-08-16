@@ -25,18 +25,17 @@ internal struct ChipsView : View {
     /// Instance of the body {@Link View}.
     var body: some View {
         if getChips().count > 0 {
-            FlexibleView(
-                data: getChips(),
-                spacing: SdkConstants.chipsPadding,
-                alignment: .leading
-            ) { item in
-                ChipView(
-                    chip: item,
-                    isRemovable: isRemovable,
-                    click: click,
-                    moreClick: moreClick
-                )
-            }
+            WrappingHStack(
+                models: getChips(),
+                viewGenerator: {
+                    ChipView(
+                        chip: $0,
+                        isRemovable: isRemovable,
+                        click: click,
+                        moreClick: moreClick
+                    )
+                }
+            )
             .padding(SdkConstants.chipsPadding)
             .listRowInsets(EdgeInsets())
         } else {

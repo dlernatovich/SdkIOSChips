@@ -18,6 +18,7 @@ struct MainControllerView : View {
     var body: some View {
         ZStack {
             List {
+                TextField(LocalizedStringKey("Search"), text: $vm.keywords)
                 ChipsHeaderView(
                     sections: $vm.chips,
                     moreClick: { vm.isShownSelection.toggle() }

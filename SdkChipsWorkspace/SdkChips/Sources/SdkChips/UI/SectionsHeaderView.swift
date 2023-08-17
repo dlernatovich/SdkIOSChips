@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 /// Header view for the chips.
-public struct ChipsHeaderView : View {
+public struct SectionsHeaderView : View {
     /// Instance of the {@link ChipSection}.
     var sections: Binding<[ChipSection]>
     /// More click callback.
@@ -19,8 +19,8 @@ public struct ChipsHeaderView : View {
     
     /// Instance of the {@link View}.
     public var body: some View {
-        ChipsView(
-            chips: getChips(),
+        SectionsView(
+            sections: sections.wrappedValue,
             isRemovable: true,
             isNeedLimits: true,
             click: { onClicked($0, $1) },
@@ -28,20 +28,14 @@ public struct ChipsHeaderView : View {
         )
     }
     
-    /// Method which provide to get chips.
-    /// - Returns: array of chips.
-    private func getChips() -> [Chip] {
-        sections.wrappedValue.flatMap { $0.chips }
-    }
-    
     /// Method which provide the action clicked.
     /// - Parameter chip: instance.
     private func onClicked(_ chip: Chip?, _ section: ChipSection?) {
-        guard let chip = chip else { return }
+        guard let section = section else { return }
         for i in 0..<sections.wrappedValue.count {
-            for j in 0..<sections.wrappedValue[i].chips.count {
-                if sections.wrappedValue[i].chips[j].id == chip.id {
-                    sections.wrappedValue[i].chips[j].isSelected.toggle()
+            if sections.wrappedValue[i].id == section.id {
+                for j in 0..<sections.wrappedValue[i].chips.count {
+                    sections.wrappedValue[i].chips[j].isSelected = false
                 }
             }
         }

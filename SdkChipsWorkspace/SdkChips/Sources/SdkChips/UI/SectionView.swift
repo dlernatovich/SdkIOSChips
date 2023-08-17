@@ -18,55 +18,65 @@ internal struct SectionView : View {
         DisclosureGroup(
             isExpanded: $isExpanded,
             content: {
-                ChipsView(
-                    chips: section.chips.wrappedValue,
-                    isRemovable: isRemovable,
-                    isNeedLimits: isNeedLimits,
-                    click: { chip in onClicked(chip) },
-                    moreClick: moreClick
-                )
+                VStack {
+                    ChipsView(
+                        chips: section.chips.wrappedValue,
+                        isRemovable: isRemovable,
+                        isNeedLimits: isNeedLimits,
+                        click: { onClicked($0, $1) },
+                        moreClick: moreClick
+                    )
+                }
+                .listRowInsets(EdgeInsets())
                 .fixedSize(horizontal: false, vertical: true)
             },
             label: {
                 let count = getSelectedChipsCount()
                 HStack {
-                    Text(section.wrappedValue.title)
-                    if count > 0 {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: ChipsConfiguration.corner)
-                                .fill(ChipsConfiguration.tint)
-                            Text(verbatim: "\(count)")
-                                .font(.system(.caption2))
-                                .fontWeight(.bold)
-                                .foregroundColor(ChipsConfiguration.moreButtonBadgeTextTint)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 3)
+                    HStack {
+                        Text(section.wrappedValue.title)
+                        if count > 0 {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: ChipsConfiguration.corner)
+                                    .fill(ChipsConfiguration.tint)
+                                Text(verbatim: "\(count)")
+                                    .font(.system(.caption2))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(ChipsConfiguration.moreButtonBadgeTextTint)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 3)
+                            }
+                            .fixedSize(horizontal: true, vertical: true)
                         }
-                        .fixedSize(horizontal: true, vertical: true)
+                        Rectangle().fill(Color.gray.opacity(0.001)).frame(maxWidth: .infinity)
+                    }.onTapGesture { isExpanded.toggle() }
+                    Button { onClearClicked() } label: {
+                        Image("0d2cb41b-200b-4a87-8879-73610e98a632", bundle: .module)
+//                            .padding(.leading, 16)
+//                            .padding(.trailing, 8)
+                            .padding(.horizontal, 8)
                     }
                 }
             }
         )
-        //        Section(header: Text(section.wrappedValue.title)) {
-        //            ChipsView(
-        //                chips: section.chips.wrappedValue,
-        //                isRemovable: isRemovable,
-        //                isNeedLimits: isNeedLimits,
-        //                click: { chip in onClicked(chip) },
-        //                moreClick: moreClick
-        //            )
-        //            .listRowInsets(EdgeInsets())
-        //        }
     }
     
     /// Method which provide the action clicked.
     /// - Parameter chip: instance.
-    private func onClicked(_ chip: Chip) {
-        for i in 0..<section.wrappedValue.chips.count {
-            if section.wrappedValue.chips[i].id == chip.id {
-                section.wrappedValue.chips[i].isSelected.toggle()
+    private func onClicked(_ chip: Chip?, _ section: ChipSection?) {
+        guard let chip = chip else { return }
+        for i in 0..<self.section.wrappedValue.chips.count {
+            if self.section.wrappedValue.chips[i].id == chip.id {
+                self.section.wrappedValue.chips[i].isSelected.toggle()
                 return
             }
+        }
+    }
+    
+    /// Method which provide the clear clicked.
+    private func onClearClicked() {
+        for i in 0..<section.wrappedValue.chips.count {
+            section.wrappedValue.chips[i].isSelected = false
         }
     }
     

@@ -11,7 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SdkChipsConfigurator.configure(
             limit: 4,
             tint: Color("ColorPurple", bundle: .main),
-            moreButtonTint: Color(UIColor.darkGray),
+            moreButtonTint: Color("BlackToWHite"),
             corner: 8.0
         )
         // Override point for customization after application launch.

@@ -7,7 +7,7 @@ internal struct ChipsSelectionInternalView : View {
     /// {@link Binding} value of the {@link PresentationMode}.
     @Environment(\.presentationMode) fileprivate var presentationMode: Binding<PresentationMode>
     /// Chip search.
-    var chipSearch: Binding<String>
+    var chipSearch: Binding<String>?
     /// Value of the title.
     let title: LocalizedStringKey
     /// Instance of the {@link ChipSection}.
@@ -17,7 +17,7 @@ internal struct ChipsSelectionInternalView : View {
     public var body: some View {
         let view = NavigationView {
             List {
-                if chipSearch.wrappedValue.isEmpty == true {
+                if chipSearch == nil || chipSearch!.wrappedValue.isEmpty == true {
                     ForEach(sections, id: \.id) {
                         SectionView(
                             section: $0,
@@ -28,10 +28,10 @@ internal struct ChipsSelectionInternalView : View {
                     }
                 } else {
                     ChipsView(
-                        chips: getChips(filter: chipSearch.wrappedValue),
+                        chips: getChips(filter: chipSearch?.wrappedValue),
                         isRemovable: false,
                         isNeedLimits: false,
-                        click: { onClicked($0) },
+                        click: { onClicked($0, $1) },
                         moreClick: nil
                     )
                 }
@@ -50,8 +50,11 @@ internal struct ChipsSelectionInternalView : View {
         }
         // Add searchable.
         if #available(iOS 15.0, *) {
-            view
-//                .searchable(text: chipSearch)
+            if chipSearch != nil {
+                view.searchable(text: chipSearch!)
+            } else {
+                view
+            }
         } else {
             view
         }
@@ -60,15 +63,19 @@ internal struct ChipsSelectionInternalView : View {
     /// Method which provide to get chips.
     /// - Parameter filter: value.
     /// - Returns: array of the chips.
-    private func getChips(filter: String) -> [Chip] {
-        sections.wrappedValue
+    private func getChips(filter: String?) -> [Chip] {
+        guard let filter = filter else {
+            return sections.wrappedValue.flatMap { $0.chips }
+        }
+        return sections.wrappedValue
             .flatMap { $0.chips }
             .filter { $0.title.stringKey?.lowercased().contains(filter.lowercased()) == true }
     }
     
     /// Method which provide the action clicked.
     /// - Parameter chip: instance.
-    private func onClicked(_ chip: Chip) {
+    private func onClicked(_ chip: Chip?, _ section: ChipSection?) {
+        guard let chip = chip else { return }
         for i in 0..<sections.wrappedValue.count {
             for j in 0..<sections.wrappedValue[i].chips.count {
                 if sections.wrappedValue[i].chips[j].id == chip.id {
@@ -85,7 +92,7 @@ public struct ChipsSelectionView : View {
     /// {@link Bool} value if need to show.
     let isPresented: Binding<Bool>
     /// {@link String} value of the chip search.
-    let chipSearch: Binding<String>
+    let chipSearch: Binding<String>?
     /// Value of the title.
     let title: LocalizedStringKey
     /// Instance of the {@link ChipSection}.
@@ -98,7 +105,7 @@ public struct ChipsSelectionView : View {
     ///   - sections: sections array.
     public init(
         isPresented: Binding<Bool>,
-        chipSearch: Binding<String>,
+        chipSearch: Binding<String>?,
         title: LocalizedStringKey,
         sections: Binding<[ChipSection]>
     ) {

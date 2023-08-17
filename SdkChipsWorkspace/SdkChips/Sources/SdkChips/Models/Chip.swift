@@ -89,7 +89,8 @@ public extension Chip {
     
 }
 
-//MARK: - ChipModel - Constants
+//MARK: - Chip - Constants
+/// Extension which provide the constants for the chip.
 @available(iOS 13.0, *)
 internal extension Chip {
     

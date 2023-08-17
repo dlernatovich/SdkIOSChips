@@ -5,7 +5,9 @@ import SwiftUI
 /// View which provide the chip displaying.
 internal struct ChipView : View {
     /// Instance of the chip.
-    let chip: Chip
+    let chip: Chip?
+    /// Instance of the chip section.
+    let section: ChipSection?
     /// {@link Bool} value if it is removable.
     let isRemovable: Bool
     /// {@link Color} value of the tint.
@@ -24,8 +26,9 @@ internal struct ChipView : View {
     /// Instance of the view.
     var body: some View {
         HStack {
-            if chip.isMoreChip() == true {
-                Image(systemName: "ellipsis")
+            if isMoreChip(chip, section) == true {
+                Image("41eb014b-e807-43f1-adf9-2ce4a503f036", bundle: Bundle.module)
+                    .renderingMode(.template)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: SdkConstants.chipIconSize, height: SdkConstants.chipIconSize)
@@ -42,7 +45,7 @@ internal struct ChipView : View {
                             .padding(.vertical, 3)
                     }.fixedSize()
                 }
-            } else {
+            } else if let chip = chip {
                 chip.image?
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -58,64 +61,110 @@ internal struct ChipView : View {
                         .frame(width: SdkConstants.chipCloseSize, height: SdkConstants.chipCloseSize)
                         .foregroundColor(tint)
                 }
+            } else if let section = section {
+                Text(section.title)
+                    .font(.body)
+                    .foregroundColor(tint)
+                if section.selectedCount > 0 {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: ChipsConfiguration.corner)
+                            .fill(ChipsConfiguration.tint)
+                        Text(verbatim: "+\(section.selectedCount)")
+                            .font(.system(.caption2))
+                            .fontWeight(.bold)
+                            .foregroundColor(ChipsConfiguration.moreButtonBadgeTextTint)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                    }.fixedSize()
+                }
+                if isRemovable == true {
+                    Image(systemName: "xmark.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: SdkConstants.chipCloseSize, height: SdkConstants.chipCloseSize)
+                        .foregroundColor(tint)
+                }
             }
         }
         .padding([.top, .bottom], SdkConstants.chipPaddingVertical)
         .padding([.leading, .trailing], SdkConstants.chipPaddingHorizontal)
-        .foregroundColor(getForegroundColor(chip))
-        .background(getBackgroundColor(chip))
+        .foregroundColor(getForegroundColor(chip, section))
+        .background(getBackgroundColor(chip, section))
         .cornerRadius(corner)
         .overlay(
             RoundedRectangle(
                 cornerRadius: corner
             ).stroke(
-                getStrokeColor(chip), lineWidth: SdkConstants.chipLineWidth
+                getStrokeColor(chip, section), lineWidth: SdkConstants.chipLineWidth
             )
         )
         .onTapGesture {
-            if chip.isMoreChip() == true {
+            if isMoreChip(chip, section) == true {
                 moreClick?()
             } else {
-                click(chip)
+                click(chip, section)
             }
         }
+    }
+    
+    /// Check if current chip is more.
+    /// - Parameters:
+    ///   - chip: instance.
+    ///   - section: instance.
+    /// - Returns: if is mre chip.
+    private func isMoreChip(_ chip: Chip?, _ section: ChipSection?) -> Bool {
+        return chip?.isMoreChip() ?? section?.isMoreChip() ?? false
     }
     
     /// Method which provide to get foreground color.
     /// - Parameter chip: instance.
     /// - Returns: color value.
-    private func getForegroundColor(_ chip: Chip) -> Color {
-        if chip.isMoreChip() == true {
+    private func getForegroundColor(_ chip: Chip?, _ section: ChipSection?) -> Color {
+        if isMoreChip(chip, section) == true {
             return .clear
-        } else {
-            if chip.isSelected == true {
+        } else if let it = chip {
+            if it.isSelected == true {
+                return .clear
+            }
+            return tint.opacity(SdkConstants.chipBackgroundOpacity)
+        } else if let it = section {
+            if it.hasSelected == true {
                 return .clear
             }
             return tint.opacity(SdkConstants.chipBackgroundOpacity)
         }
+        return .clear
     }
     
     /// Method which provide to get foreground color.
     /// - Parameter chip: instance.
     /// - Returns: color value.
-    private func getBackgroundColor(_ chip: Chip) -> Color {
-        if chip.isMoreChip() == true {
+    private func getBackgroundColor(_ chip: Chip?, _ section: ChipSection?) -> Color {
+        if isMoreChip(chip, section) == true {
             return moreButtonTint.opacity(SdkConstants.chipBackgroundOpacity)
-        } else {
+        } else if let it = chip {
             if isRemovable {
                 return .clear
-            } else if chip.isSelected == true {
+            } else if it.isSelected == true {
+                return tint.opacity(SdkConstants.chipBackgroundOpacity)
+            }
+            return .clear
+        } else if let it = section {
+            if isRemovable {
+                return .clear
+            } else if it.hasSelected == true {
                 return tint.opacity(SdkConstants.chipBackgroundOpacity)
             }
             return .clear
         }
+        return .clear
     }
     
     /// Method which provide to get stroke color.
     /// - Parameter chip: instance.
     /// - Returns: color value.
-    private func getStrokeColor(_ chip: Chip) -> Color {
-        if chip.isMoreChip() == true {
+    private func getStrokeColor(_ chip: Chip?, _ section: ChipSection?) -> Color {
+        if isMoreChip(chip, section) == true {
             return moreButtonTint
         } else {
             return tint

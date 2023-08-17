@@ -19,14 +19,14 @@ struct MainControllerView : View {
         ZStack {
             List {
                 TextField(LocalizedStringKey("Search"), text: $vm.keywords)
-                ChipsHeaderView(
+                SectionsHeaderView(
                     sections: $vm.chips,
                     moreClick: { vm.isShownSelection.toggle() }
                 )
             }
             ChipsSelectionView(
                 isPresented: $vm.isShownSelection,
-                chipSearch: $vm.chipSearch,
+                chipSearch: nil,
                 title: LocalizedStringKey("Tags"),
                 sections: $vm.chips
             )

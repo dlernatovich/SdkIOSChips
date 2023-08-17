@@ -2,9 +2,9 @@ import Foundation
 import SwiftUI
 
 /// View which provide the chips displaying.
-internal struct ChipsView : View {
+internal struct SectionsView : View {
     /// Array of the chips models.
-    let chips: [Chip]
+    let sections: [ChipSection]
     /// {@link Bool} value if it is removable.
     let isRemovable: Bool
     /// {@link Bool} value if is need limits.
@@ -24,13 +24,13 @@ internal struct ChipsView : View {
     
     /// Instance of the body {@Link View}.
     var body: some View {
-        if getChips().count > 0 {
+        if getSections().count > 0 {
             WrappingHStack(
-                models: getChips(),
+                models: getSections(),
                 viewGenerator: {
                     ChipView(
-                        chip: $0,
-                        section: nil,
+                        chip: nil,
+                        section: $0,
                         isRemovable: isRemovable,
                         click: click,
                         moreClick: moreClick
@@ -46,10 +46,10 @@ internal struct ChipsView : View {
     
     /// Method which provide to get chips.
     /// - Returns: array of chips.
-    private func getChips() -> [Chip] {
-        var result: [Chip] = []
-        result.append(contentsOf: chips)
-        if isRemovable == true { result.removeAll(where: { $0.isSelected == false }) }
+    private func getSections() -> [ChipSection] {
+        var result: [ChipSection] = []
+        result.append(contentsOf: sections)
+        if isRemovable == true { result.removeAll(where: { $0.hasSelected == false }) }
         if isNeedLimits == true, let limit = limit {
             let previousCount = result.count
             let it = result.prefix(limit)

@@ -23,7 +23,8 @@ internal struct ChipsSelectionInternalView : View {
                             section: $0,
                             isRemovable: false,
                             isNeedLimits: false,
-                            moreClick: nil
+                            moreClick: nil,
+                            expandCallback: { onExpandClicked($0) }
                         )
                     }
                 } else {
@@ -84,6 +85,17 @@ internal struct ChipsSelectionInternalView : View {
             }
         }
     }
+    
+    /// Method which provide the expand callback functional.
+    /// - Parameter section: instance.
+    private func onExpandClicked(_ section: ChipSection?) {
+        for i in 0..<sections.wrappedValue.count {
+            if sections.wrappedValue[i].id != section?.id {
+                sections.wrappedValue[i].isExpanded = false
+            }
+        }
+    }
+    
 }
 
 //MARK: - ChipsSelectionView

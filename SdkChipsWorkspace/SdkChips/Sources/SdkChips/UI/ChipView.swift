@@ -32,15 +32,15 @@ internal struct ChipView : View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: SdkConstants.chipIconSize, height: SdkConstants.chipIconSize)
-                    .foregroundColor(ChipsConfiguration.moreButtonTint)
+                    .foregroundColor(Color(UIColor.tertiarySystemBackground))
                 if moreCount > 0 {
                     ZStack {
                         RoundedRectangle(cornerRadius: ChipsConfiguration.corner)
-                            .fill(ChipsConfiguration.tint)
+                            .fill(Color(UIColor.tertiarySystemBackground))
                         Text(verbatim: "+\(moreCount)")
                             .font(.system(.caption2))
                             .fontWeight(.bold)
-                            .foregroundColor(ChipsConfiguration.moreButtonBadgeTextTint)
+                            .foregroundColor(ChipsConfiguration.moreButtonTint)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 3)
                     }.fixedSize()
@@ -121,7 +121,7 @@ internal struct ChipView : View {
     /// - Returns: color value.
     private func getForegroundColor(_ chip: Chip?, _ section: ChipSection?) -> Color {
         if isMoreChip(chip, section) == true {
-            return .clear
+            return ChipsConfiguration.moreButtonTint
         } else if let it = chip {
             if it.isSelected == true {
                 return .clear
@@ -141,7 +141,7 @@ internal struct ChipView : View {
     /// - Returns: color value.
     private func getBackgroundColor(_ chip: Chip?, _ section: ChipSection?) -> Color {
         if isMoreChip(chip, section) == true {
-            return moreButtonTint.opacity(SdkConstants.chipBackgroundOpacity)
+            return ChipsConfiguration.moreButtonTint
         } else if let it = chip {
             if isRemovable {
                 return .clear

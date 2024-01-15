@@ -8,6 +8,7 @@ public struct ChipSection : Identifiable, Hashable {
     public var id: String
     public let title: LocalizedStringKey
     public var chips: [Chip]
+    public var isExpanded: Bool = false
     public var selectedCount: Int { chips.filter { $0.isSelected == true }.count }
     public var hasSelected: Bool { selectedCount > 0 }
     public func hash(into hasher: inout Hasher) { hasher.combine(id) }
@@ -25,9 +26,10 @@ public extension ChipSection {
     /// - Returns: value of the {@link ChipSectionModel}.
     static func create(
         title: String,
-        chips: [Chip]
+        chips: [Chip],
+        isExpaded: Bool = false
     ) -> ChipSection {
-        Self.create(id: UUID().uuidString, title: title, chips: chips)
+        Self.create(id: UUID().uuidString, title: title, chips: chips, isExpanded: isExpaded)
     }
     
     /// Method which provide the create functional.
@@ -39,9 +41,10 @@ public extension ChipSection {
     static func create(
         id: String,
         title: String,
-        chips: [Chip]
+        chips: [Chip],
+        isExpanded: Bool = false
     ) -> ChipSection {
-        Self.create(id: id, title: LocalizedStringKey(title), chips: chips)
+        Self.create(id: id, title: LocalizedStringKey(title), chips: chips, isExpanded: isExpanded)
     }
     
     /// Method which provide the create functional.
@@ -51,9 +54,10 @@ public extension ChipSection {
     /// - Returns: value of the {@link ChipSectionModel}.
     static func create(
         title: LocalizedStringKey,
-        chips: [Chip]
+        chips: [Chip],
+        isExpanded: Bool = false
     ) -> ChipSection {
-        Self.create(id: UUID().uuidString, title: title, chips: chips)
+        Self.create(id: UUID().uuidString, title: title, chips: chips, isExpanded: isExpanded)
     }
     
     /// Method which provide the create functional.
@@ -65,9 +69,10 @@ public extension ChipSection {
     static func create(
         id: String,
         title: LocalizedStringKey,
-        chips: [Chip]
+        chips: [Chip],
+        isExpanded: Bool = false
     ) -> ChipSection {
-        ChipSection(id: id, title: title, chips: chips)
+        ChipSection(id: id, title: title, chips: chips, isExpanded: isExpanded)
     }
     
 }

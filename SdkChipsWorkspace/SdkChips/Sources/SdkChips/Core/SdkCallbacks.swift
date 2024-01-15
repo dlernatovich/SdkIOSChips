@@ -5,3 +5,5 @@ import SwiftUI
 internal typealias ChipClickCallback = (_ chip: Chip?, _ section: ChipSection?) -> Void
 /// More chip click callback.
 public typealias MoreClickCallback = () -> Void
+/// Expand callback.
+internal typealias ExpandCallback = (_ section: ChipSection) -> Void

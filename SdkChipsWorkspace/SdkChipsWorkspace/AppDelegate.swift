@@ -9,9 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         SdkChipsConfigurator.configure(
-            limit: 4,
+            limit: 10,
             tint: Color("ColorPurple", bundle: .main),
-            moreButtonTint: Color("BlackToWHite"),
             corner: 8.0
         )
         // Override point for customization after application launch.

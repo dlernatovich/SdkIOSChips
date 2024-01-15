@@ -13,12 +13,11 @@ public final class SdkChipsConfigurator {
     public static func configure(
         limit: Int?,
         tint: Color,
-        moreButtonTint: Color,
         corner: CGFloat
     ) {
         ChipsConfiguration.limit = limit
         ChipsConfiguration.tint = tint
-        ChipsConfiguration.moreButtonTint = moreButtonTint
+        ChipsConfiguration.moreButtonTint = tint
         ChipsConfiguration.corner = corner
     }
     

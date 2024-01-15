@@ -11,14 +11,14 @@ internal struct ChipsSelectionInternalView : View {
     /// Value of the title.
     let title: LocalizedStringKey
     /// Instance of the {@link ChipSection}.
-    var sections: Binding<[ChipSection]>
+    @Binding var sections: [ChipSection]
     
     /// Instance of the {@link View}.
     public var body: some View {
         let view = NavigationView {
             List {
                 if chipSearch == nil || chipSearch!.wrappedValue.isEmpty == true {
-                    ForEach(sections, id: \.id) {
+                    ForEach($sections, id: \.id) {
                         SectionView(
                             section: $0,
                             isRemovable: false,
@@ -66,9 +66,9 @@ internal struct ChipsSelectionInternalView : View {
     /// - Returns: array of the chips.
     private func getChips(filter: String?) -> [Chip] {
         guard let filter = filter else {
-            return sections.wrappedValue.flatMap { $0.chips }
+            return sections.flatMap { $0.chips }
         }
-        return sections.wrappedValue
+        return sections
             .flatMap { $0.chips }
             .filter { $0.title.stringKey?.lowercased().contains(filter.lowercased()) == true }
     }
@@ -77,10 +77,10 @@ internal struct ChipsSelectionInternalView : View {
     /// - Parameter chip: instance.
     private func onClicked(_ chip: Chip?, _ section: ChipSection?) {
         guard let chip = chip else { return }
-        for i in 0..<sections.wrappedValue.count {
-            for j in 0..<sections.wrappedValue[i].chips.count {
-                if sections.wrappedValue[i].chips[j].id == chip.id {
-                    sections.wrappedValue[i].chips[j].isSelected.toggle()
+        for i in 0..<sections.count {
+            for j in 0..<sections[i].chips.count {
+                if sections[i].chips[j].id == chip.id {
+                    sections[i].chips[j].isSelected.toggle()
                 }
             }
         }
@@ -89,9 +89,9 @@ internal struct ChipsSelectionInternalView : View {
     /// Method which provide the expand callback functional.
     /// - Parameter section: instance.
     private func onExpandClicked(_ section: ChipSection?) {
-        for i in 0..<sections.wrappedValue.count {
-            if sections.wrappedValue[i].id != section?.id {
-                sections.wrappedValue[i].isExpanded = false
+        for i in 0..<sections.count {
+            if sections[i].id != section?.id {
+                sections[i].isExpanded = false
             }
         }
     }

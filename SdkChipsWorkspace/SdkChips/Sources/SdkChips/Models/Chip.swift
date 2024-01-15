@@ -27,6 +27,7 @@ public extension Chip {
     
     /// Method which provide to toggle selected.
     /// - Returns: instance.
+    @discardableResult
     mutating func toggleSelected() -> Self {
         self.isSelected.toggle()
         return self
@@ -51,7 +52,9 @@ public extension Chip {
         image: Image? = nil,
         title: String,
         selected: Bool? = nil
-    ) -> Chip { .create(id: id, image: image, title: LocalizedStringKey(title), selected: selected) }
+    ) -> Chip {
+        Self.create(id: id, image: image, title: LocalizedStringKey(title), selected: selected)
+    }
     
     /// Method which provide to create the model functional.
     /// - Parameters:
@@ -64,7 +67,9 @@ public extension Chip {
         image: Image? = nil,
         title: LocalizedStringKey,
         selected: Bool? = nil
-    ) -> Chip { .create(id: UUID().uuidString, image: image, title: title, selected: selected) }
+    ) -> Chip {
+        Self.create(id: UUID().uuidString, image: image, title: title, selected: selected)
+    }
     
     /// Method which provide to create the model functional.
     /// - Parameters:
@@ -79,12 +84,7 @@ public extension Chip {
         title: LocalizedStringKey,
         selected: Bool? = nil
     ) -> Chip {
-        .init(
-            id: id,
-            image: image,
-            title: title,
-            isSelected: selected ?? false
-        )
+        Self.init(id: id, image: image, title: title, isSelected: selected ?? false)
     }
     
 }
@@ -96,7 +96,7 @@ internal extension Chip {
     
     /// Chip for more view.
     static var moreChip: Chip {
-        .create(id: "37eb0e5a-6a7b-41e5-bb4d-b1fcff2d50ca", title: "")
+        Self.create(id: "37eb0e5a-6a7b-41e5-bb4d-b1fcff2d50ca", title: "")
     }
     
     /// Check if current chip is more.

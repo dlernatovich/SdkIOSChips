@@ -27,7 +27,7 @@ public extension ChipSection {
         title: String,
         chips: [Chip]
     ) -> ChipSection {
-        return Self.create(id: UUID().uuidString, title: title, chips: chips)
+        Self.create(id: UUID().uuidString, title: title, chips: chips)
     }
     
     /// Method which provide the create functional.
@@ -41,7 +41,7 @@ public extension ChipSection {
         title: String,
         chips: [Chip]
     ) -> ChipSection {
-        return Self.create(id: id, title: LocalizedStringKey(title), chips: chips)
+        Self.create(id: id, title: LocalizedStringKey(title), chips: chips)
     }
     
     /// Method which provide the create functional.
@@ -53,7 +53,7 @@ public extension ChipSection {
         title: LocalizedStringKey,
         chips: [Chip]
     ) -> ChipSection {
-        return Self.create(id: UUID().uuidString, title: title, chips: chips)
+        Self.create(id: UUID().uuidString, title: title, chips: chips)
     }
     
     /// Method which provide the create functional.
@@ -67,7 +67,7 @@ public extension ChipSection {
         title: LocalizedStringKey,
         chips: [Chip]
     ) -> ChipSection {
-        return ChipSection(id: id, title: title, chips: chips)
+        ChipSection(id: id, title: title, chips: chips)
     }
     
 }
@@ -79,7 +79,7 @@ internal extension ChipSection {
     
     /// Chip for more view.
     static var moreChip: ChipSection {
-        .create(id: "a517388f-5c33-4d0a-af8c-09ca513a78dc", title: "", chips: [])
+        Self.create(id: "a517388f-5c33-4d0a-af8c-09ca513a78dc", title: "", chips: [])
     }
     
     /// Check if current chip is more.

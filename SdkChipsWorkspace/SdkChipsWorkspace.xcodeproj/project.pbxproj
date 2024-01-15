@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01109E722B551D500051DAB2 /* SdkChips in Frameworks */ = {isa = PBXBuildFile; productRef = 01109E712B551D500051DAB2 /* SdkChips */; };
 		016106C52A84F1920017C627 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016106C42A84F1920017C627 /* AppDelegate.swift */; };
 		016106C72A84F1920017C627 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016106C62A84F1920017C627 /* SceneDelegate.swift */; };
 		016106CC2A84F1920017C627 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 016106CA2A84F1920017C627 /* Main.storyboard */; };
@@ -89,6 +90,7 @@
 				016106ED2A851B260017C627 /* SdkChips in Frameworks */,
 				019156162A8BC47C000FE278 /* SdkChips in Frameworks */,
 				016106EA2A85066D0017C627 /* SdkChips in Frameworks */,
+				01109E722B551D500051DAB2 /* SdkChips in Frameworks */,
 				016106E72A84FF930017C627 /* SdkChips in Frameworks */,
 				016106F02A8521F30017C627 /* SdkChips in Frameworks */,
 				016106E42A84FC270017C627 /* SdkChips in Frameworks */,
@@ -186,6 +188,7 @@
 				0185D4E52A8D0CA400AE3A4E /* SdkChips */,
 				01F99D8D2A8E19D70050F19B /* SdkChips */,
 				01F99D902A8E3DBE0050F19B /* SdkChips */,
+				01109E712B551D500051DAB2 /* SdkChips */,
 			);
 			productName = SdkChipsWorkspace;
 			productReference = 016106C12A84F1920017C627 /* SdkChipsWorkspace.app */;
@@ -216,7 +219,7 @@
 			);
 			mainGroup = 016106B82A84F1910017C627;
 			packageReferences = (
-				01F99D8F2A8E3DBE0050F19B /* XCLocalSwiftPackageReference "SdkChips" */,
+				01109E702B551D500051DAB2 /* XCLocalSwiftPackageReference "SdkChips" */,
 			);
 			productRefGroup = 016106C22A84F1920017C627 /* Products */;
 			projectDirPath = "";
@@ -474,13 +477,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		01F99D8F2A8E3DBE0050F19B /* XCLocalSwiftPackageReference "SdkChips" */ = {
+		01109E702B551D500051DAB2 /* XCLocalSwiftPackageReference "SdkChips" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = SdkChips;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		01109E712B551D500051DAB2 /* SdkChips */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SdkChips;
+		};
 		016106D92A84F1BA0017C627 /* SdkChips */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SdkChips;

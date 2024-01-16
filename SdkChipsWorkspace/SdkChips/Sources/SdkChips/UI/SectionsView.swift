@@ -28,13 +28,25 @@ internal struct SectionsView : View {
             WrappingHStack(
                 models: getSections(),
                 viewGenerator: {
-                    ChipView(
-                        chip: nil,
-                        section: $0,
-                        isRemovable: isRemovable,
-                        click: click,
-                        moreClick: moreClick
-                    )
+                    if $0.isMoreChip() == true {
+                        ChipView(
+                            type: .more,
+                            model: $0,
+                            imageName: nil,
+                            moreCount: 0,
+                            click: nil,
+                            buttonClick: moreClick
+                        )
+                    } else {
+                        ChipView(
+                            type: isRemovable == true ? .chipSectionRemovable : .chipSection,
+                            model: $0,
+                            imageName: nil,
+                            moreCount: 0,
+                            click: click,
+                            buttonClick: nil
+                        )
+                    }
                 }
             )
             .padding(SdkConstants.chipsPadding)
@@ -49,7 +61,7 @@ internal struct SectionsView : View {
     private func getSections() -> [ChipSection] {
         var result: [ChipSection] = []
         result.append(contentsOf: sections)
-        if isRemovable == true { result.removeAll(where: { $0.hasSelected == false }) }
+        if isRemovable == true { result.removeAll(where: { $0.isHasSelected() == false }) }
         if isNeedLimits == true, let limit = limit {
             let previousCount = result.count
             let it = result.prefix(limit)

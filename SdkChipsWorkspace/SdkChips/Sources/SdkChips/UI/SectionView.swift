@@ -56,8 +56,6 @@ internal struct SectionView : View {
                     }
                     Button { onClearClicked() } label: {
                         Image("0d2cb41b-200b-4a87-8879-73610e98a632", bundle: .module)
-//                            .padding(.leading, 16)
-//                            .padding(.trailing, 8)
                             .padding(.horizontal, 8)
                     }
                 }

@@ -28,13 +28,25 @@ internal struct ChipsView : View {
             WrappingHStack(
                 models: getChips(),
                 viewGenerator: {
-                    ChipView(
-                        chip: $0,
-                        section: nil,
-                        isRemovable: isRemovable,
-                        click: click,
-                        moreClick: moreClick
-                    )
+                    if $0.isMoreChip() == true {
+                        ChipView(
+                            type: .more,
+                            model: $0,
+                            imageName: nil,
+                            moreCount: 0,
+                            click: nil,
+                            buttonClick: moreClick
+                        )
+                    } else {
+                        ChipView(
+                            type: isRemovable == true ? .chipRemovable : .chip,
+                            model: $0,
+                            imageName: nil,
+                            moreCount: 0,
+                            click: click,
+                            buttonClick: nil
+                        )
+                    }
                 }
             )
             .padding(SdkConstants.chipsPadding)

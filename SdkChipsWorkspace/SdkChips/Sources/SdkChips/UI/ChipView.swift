@@ -179,8 +179,9 @@ internal struct ChipView : View {
                 .font(.body)
                 .foregroundColor(tint)
             HStack(spacing: 2) {
+                let count = (isExpanded) ? it.getSelectedCount() - 1 : it.getSelectedCount()
                 if isExpanded {
-                    ForEach(it.chips.filter { $0.isSelected }, id: \.self) { chip in
+                    ForEach(it.chips.filter { $0.isSelected }.prefix(1), id: \.self) { chip in
                         Text(chip.title)
                             .font(.system(.caption2))
                             .fontWeight(.bold)
@@ -191,8 +192,8 @@ internal struct ChipView : View {
                             .fixedSize()
                     }
                 }
-                if it.getSelectedCount() > 0 {
-                    Text(verbatim: "+\(it.getSelectedCount())")
+                if count > 0 {
+                    Text(verbatim: "+\(count)")
                         .font(.system(.caption2))
                         .fontWeight(.bold)
                         .foregroundColor(Color(UIColor.tertiarySystemBackground))

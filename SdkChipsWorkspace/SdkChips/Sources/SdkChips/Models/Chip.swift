@@ -8,6 +8,7 @@ public struct Chip : Identifiable, Hashable {
     public let id: String
     public let image: Image?
     public let title: LocalizedStringKey
+    public var titleString: String { title.stringValue() }
     public var isSelected: Bool
     public func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }

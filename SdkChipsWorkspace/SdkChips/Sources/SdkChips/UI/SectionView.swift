@@ -14,6 +14,11 @@ internal struct SectionView : View {
     /// Expand callback.
     let expandCallback: ExpandCallback?
     
+    /// {@link Color} value of the tint.
+    private var tint: Color { ChipsConfiguration.tint }
+    /// {@link CGFloat} of the corner radius.
+    private var corner: CGFloat { ChipsConfiguration.corner }
+    
     /// Instance of the {@link View}.
     internal var body: some View {
         DisclosureGroup(
@@ -37,17 +42,15 @@ internal struct SectionView : View {
                     HStack {
                         Text(section.title)
                         if count > 0 {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: ChipsConfiguration.corner)
-                                    .fill(ChipsConfiguration.tint)
-                                Text(verbatim: "\(count)")
-                                    .font(.system(.caption2))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(ChipsConfiguration.moreButtonBadgeTextTint)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 3)
-                            }
-                            .fixedSize(horizontal: true, vertical: true)
+                            let text = (count == 1) ? section.getSelectedChips().first!.titleString : "\(section.getSelectedCount())"
+                            Text(text)
+                                .font(.system(.caption2))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(UIColor.tertiarySystemBackground))
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(getFillOverlay(tint))
+                                .fixedSize()
                         }
                         Rectangle().fill(Color.gray.opacity(0.001)).frame(maxWidth: .infinity)
                     }.onTapGesture {
@@ -61,6 +64,20 @@ internal struct SectionView : View {
                 }
             }
         )
+    }
+    
+    /// Method which provide to get rectangle overlay.
+    /// - Parameter it: color value.
+    /// - Returns: overlay value.
+    private func getOverlay(_ it: Color) -> some View {
+        RoundedRectangle(cornerRadius: corner).stroke(it, lineWidth: SdkConstants.chipLineWidth)
+    }
+    
+    /// Method which provide to get rectangle overlay.
+    /// - Parameter it: color value.
+    /// - Returns: overlay value.
+    private func getFillOverlay(_ it: Color) -> some View {
+        RoundedRectangle(cornerRadius: corner).fill(it)
     }
     
     /// Method which provide the action clicked.
@@ -85,7 +102,7 @@ internal struct SectionView : View {
     /// Method which provide to get selected chips count.
     /// - Returns: {@link Int} value of the selected chips.
     private func getSelectedChipsCount() -> Int {
-        return section.chips.filter { $0.isSelected == true }.count
+        return section.getSelectedCount()
     }
     
 }

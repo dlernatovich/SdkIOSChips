@@ -9,7 +9,7 @@ public struct Chip : Identifiable, Hashable {
     public let image: Image?
     public let title: LocalizedStringKey
     public var titleString: String { title.stringValue() }
-    public var isSelected: Bool
+    public var isSelected: Bool { didSet { SdkChipsStorage.shared.setValue(self) } }
     public func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }
 
@@ -85,7 +85,12 @@ public extension Chip {
         title: LocalizedStringKey,
         selected: Bool? = nil
     ) -> Chip {
-        Self.init(id: id, image: image, title: title, isSelected: selected ?? false)
+        Self.init(
+            id: id,
+            image: image,
+            title: title,
+            isSelected: SdkChipsStorage.shared.getValue(id, defaultValue: selected)
+        )
     }
     
 }
